@@ -138,6 +138,8 @@ public:
     void vLine(Vec2 pos, int height, Color &c, uint8_t alpha = 255);
     void rect(Rect2 rect, Color &c, uint8_t alpha = 255);
     void line(Vec2 p0, Vec2 p1, Color &c, uint8_t alpha = 255);
+	void drawCircle(int radius, Vec2 pos, Color &c, uint8_t alpha = 255);
+	void drawFillCircle(int radius, Vec2 pos, Color &c, uint8_t alpha = 255);
     void triangle(Vec2 p0, Vec2 p1, Vec2 p2, Color &c, uint8_t alpha = 255);
     void fillTriangle(Vec2 p0, Vec2 p1, Vec2 p2, Color &c, uint8_t alpha = 255);
 };

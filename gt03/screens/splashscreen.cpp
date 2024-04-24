@@ -49,8 +49,8 @@ void SplashScreen::update(uint16_t deltaTimeMS) {
     frameQuotient = accDeltaTimeMS / 16;
     this->accDeltaTimeMS -= 16 * frameQuotient;
     
-    if(this->tileMoveX >= 240){
-        this->tileMoveX = 0;
+    if(this->tileMoveX >= 100){
+        this->tileMoveX = 5;
 	}else{
 		this->tileMoveX += frameQuotient;	
 	}
@@ -69,9 +69,12 @@ void SplashScreen::draw(Display *display) {
 	uint16_t width;
 	
 	display->clear(Color(255, 255, 255));
-    this->bgLayer->draw(display, this->tileMoveX, this->tileMoveY);
-    width = logoSprite.getSpriteWidth(tigerFrame);
-    logoSprite.drawSprite(display, tigerFrame, Vec2((DISPLAY_WIDTH - width)/2, 56), this->imageAlpha);
+    //this->bgLayer->draw(display, this->tileMoveX, this->tileMoveY);
+	Color cRed = Color(255, 0, 0);
+	display->drawFillCircle(this->tileMoveX,  Vec2(160, 120), BLACKCOLOR,200);
+	display->drawFillCircle(this->tileMoveX-4,  Vec2(160, 120), WHITECOLOR,200);
+    //width = logoSprite.getSpriteWidth(tigerFrame);
+    //logoSprite.drawSprite(display, tigerFrame, Vec2((DISPLAY_WIDTH - width)/2, 56), this->imageAlpha);
     title = std::to_string(abs(this->tileMoveX));
     width = alphanumfont.getTextWidth(title, 2);
     alphanumfont.drawText(display, title, Vec2((DISPLAY_WIDTH - width)/2, 190), this->imageAlpha, 2);

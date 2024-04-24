@@ -127,6 +127,53 @@ void FrameBuffer::line(Vec2 p0, Vec2 p1, Color &c, uint8_t alpha) {
 	}
 }
 
+void FrameBuffer::drawCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
+
+    int x = 0, y = radius;
+    int d = 3 - 2 * radius;
+    this->setPixel(Vec2(pos.x+x, pos.y+y), c, alpha);
+    this->setPixel(Vec2(pos.x-x, pos.y+y), c, alpha);
+    this->setPixel(Vec2(pos.x+x, pos.y-y), c, alpha);
+    this->setPixel(Vec2(pos.x-x, pos.y-y), c, alpha);
+    this->setPixel(Vec2(pos.x+y, pos.y+x), c, alpha);
+    this->setPixel(Vec2(pos.x-y, pos.y+x), c, alpha);
+    this->setPixel(Vec2(pos.x+y, pos.y-x), c, alpha);
+    this->setPixel(Vec2(pos.x-y, pos.y-x), c, alpha);
+    while (y >= x)
+    {
+        x++;
+
+        if (d > 0)
+        {
+            y--; 
+            d = d + 4 * (x - y) + 10;
+        }
+        else
+            d = d + 4 * x + 6;
+		this->setPixel(Vec2(pos.x+x, pos.y+y), c, alpha);
+		this->setPixel(Vec2(pos.x-x, pos.y+y), c, alpha);
+		this->setPixel(Vec2(pos.x+x, pos.y-y), c, alpha);
+		this->setPixel(Vec2(pos.x-x, pos.y-y), c, alpha);
+		this->setPixel(Vec2(pos.x+y, pos.y+x), c, alpha);
+		this->setPixel(Vec2(pos.x-y, pos.y+x), c, alpha);
+		this->setPixel(Vec2(pos.x+y, pos.y-x), c, alpha);
+		this->setPixel(Vec2(pos.x-y, pos.y-x), c, alpha);
+
+    }
+}
+
+void FrameBuffer::drawFillCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
+
+    for (int i = -radius + pos.x; i <= radius + pos.x; i++) {
+        for (int j = -radius + pos.y; j <= radius + pos.y; j++) {
+            if ((i - pos.x) * (i - pos.x) + (j - pos.y) * (j - pos.y) < (radius * radius)) {
+				this->setPixel(Vec2(i, j), c, alpha);
+            }
+        }
+    }
+
+}
+
 void FrameBuffer::triangle(Vec2 p0, Vec2 p1, Vec2 p2, Color &c, uint8_t alpha) {
     this->line(p0, p1, c, alpha);
     this->line(p1, p2, c, alpha);

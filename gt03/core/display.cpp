@@ -175,6 +175,12 @@ void Display::hLine(Vec2 pos, int width, Color &c, uint8_t alpha) {
 void Display::vLine(Vec2 pos, int height, Color &c, uint8_t alpha) {
     this->frameBuffer->vLine(pos, height, c, alpha);
 }
+void Display::drawCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
+    this->frameBuffer->drawCircle(radius, pos, c, alpha);
+}
+void Display::drawFillCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
+    this->frameBuffer->drawFillCircle(radius, pos, c, alpha);
+}
 
 void Display::rect(Rect2 rect, Color &c, uint8_t alpha) {
     this->frameBuffer->rect(rect, c, alpha);
