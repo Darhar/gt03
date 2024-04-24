@@ -164,13 +164,44 @@ void FrameBuffer::drawCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 
 void FrameBuffer::drawFillCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 
-    for (int i = -radius + pos.x; i <= radius + pos.x; i++) {
-        for (int j = -radius + pos.y; j <= radius + pos.y; j++) {
-            if ((i - pos.x) * (i - pos.x) + (j - pos.y) * (j - pos.y) < (radius * radius)) {
-				this->setPixel(Vec2(i, j), c, alpha);
-            }
-        }
+    /* if circle completely out of bounds then don't bother!
+    if (!clip.intersects(Rect(c.x - r, c.y - r, r * 2, r * 2))) {
+      return;
     }
+	*/
+    int x = radius, y = 0, err = -radius;
+    while (x >= y)
+    {
+      int lastY = y;
+
+      err += y; y++; err += y;
+
+      //h_span(Point(c.x - x, c.y + lastY), x * 2 + 1);
+	  this->hLine(Vec2(pos.x - x, pos.y + lastY), x * 2 + 1, c, alpha);
+      if (lastY != 0) {
+        //h_span(Point(c.x - x, c.y - lastY), x * 2 + 1);
+		this->hLine(Vec2(pos.x - x, pos.y - lastY), x * 2 + 1, c, alpha);
+
+      }
+
+      if (err >= 0) {
+        if (x != lastY) {
+          //h_span(Point(c.x - lastY, c.y + x), lastY * 2 + 1);
+		  this->hLine(Vec2(pos.x - lastY, pos.y + x), lastY * 2 + 1, c, alpha);
+
+          if (x != 0) {
+            //h_span(Point(c.x - lastY, c.y - x), lastY * 2 + 1);
+			this->hLine(Vec2(pos.x - lastY, pos.y - x), lastY * 2 + 1, c, alpha);
+
+          }
+
+          err -= x; x--; err -= x;
+        }
+      }
+    }
+
+
+
 
 }
 
