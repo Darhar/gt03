@@ -197,19 +197,18 @@ void FrameBuffer::drawFillCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) 
 }
 
 void FrameBuffer::drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
-
 	float lum;
 	int shade;	
- 
-	// Light shines towards left and bottom, to inside screen. 
-	vec3 light{ 1.0f, 1.0f, 1.0f }; 
+	int rad2=2*radius;
+	
+	vec3 light{ 1.0f, 1.0f, 1.0f }; // Light shines towards left and bottom, to inside screen. 
 	light.normalize(); 
  
-	for (int y = 0; y < 2*radius; y++) { 
-		for (int x = 0; x < 2*radius; x++) { 
+	for (int y = 0; y < rad2; y++) { 
+		for (int x = 0; x < rad2; x++) { 
 			if (distance(x, y, radius, radius) <= radius){
 
-				vec3 normal = { x - radius, y - radius, -30.0f }; 
+				vec3 normal = { x - radius, y - radius, -radius }; 
 				normal.normalize(); 
  
 				lum = normal.dot(-light); 
