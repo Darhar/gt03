@@ -181,7 +181,9 @@ void Display::drawCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 void Display::drawFillCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
     this->frameBuffer->drawFillCircle(radius, pos, c, alpha);
 }
-
+void Display::drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha){
+	this->frameBuffer->drawSphere(radius, pos, c, alpha);
+}
 void Display::rect(Rect2 rect, Color &c, uint8_t alpha) {
     this->frameBuffer->rect(rect, c, alpha);
 }

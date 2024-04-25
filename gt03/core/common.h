@@ -46,9 +46,64 @@
 enum ImageType {INDEXEDCOLORS, PIXELCOLOR};
 enum GameState {WAITING, PLAYING, PAUSED, LOST};
 
+typedef struct {
+    float x, y, z;
+} Vector3;
+
+struct vec3 { 
+	float x; 
+	float y; 
+	float z; 
+ 
+	vec3 operator+(const vec3& other) const { 
+		return { x + other.x, y + other.y, z + other.z }; 
+	} 
+ 
+	vec3 operator-(const vec3& other) const { 
+		return { x - other.x, y - other.y, z - other.z }; 
+	} 
+ 
+	vec3 operator-() const { 
+		return { -x, -y, -z }; 
+	} 
+ 
+	vec3 operator*(const float& scalar) const { 
+		return { x * scalar, y * scalar, z * scalar }; 
+	} 
+ 
+	vec3 operator/(const float& scalar) const { 
+		return { x / scalar, y / scalar, z / scalar }; 
+	} 
+ 
+	float dot(const vec3& other) const { 
+		return x * other.x + y * other.y + z * other.z; 
+	} 
+ 
+	float len() const { 
+		return sqrtf(this->dot(*this)); 
+	} 
+ 
+	void normalize() { 
+		float len = this->len(); 
+		x /= len; 
+		y /= len; 
+		z /= len; 
+	} 
+}; 
+
+float intersectSphere(vec3 origin, vec3 dir, vec3 center, float radius);
 timetype getTime();
 uint16_t getTimeDiffMS(timetype start);
 
+// Function to calculate the dot product of two vectors
+float dot(Vector3 a, Vector3 b);
+
+// Function to normalize a vector
+Vector3 normalize(Vector3 v);
+
+double distance(int x1, int y1, int x2, int y2);
+int calculateIntensity(int x, int y, int centerX, int centerY, int radius);
+	
 extern Color BLACKCOLOR;
 extern Color WHITECOLOR;
 extern Color REDCOLOR;

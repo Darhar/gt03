@@ -41,3 +41,37 @@ uint16_t getTimeDiffMS(timetype start) {
     // printf("Time diff: %d\n", timeDiffMS);
     return timeDiffMS;
 }
+// Function to calculate the dot product of two vectors
+float dot(Vector3 a, Vector3 b) {
+    return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+// Function to normalize a vector
+Vector3 normalize(Vector3 v) {
+    float length = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    return (Vector3){v.x / length, v.y / length, v.z / length};
+}
+// Function to calculate distance between two points
+double distance(int x1, int y1, int x2, int y2) {
+    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+}
+
+// Function to calculate the intensity of a pixel based on its distance from the center
+int calculateIntensity(int x, int y, int centerX, int centerY, int radius) {
+    double dist = distance(x, y, centerX, centerY);
+    double intensity = 255 * (1 - (dist / radius));
+    return (int) intensity;
+}
+
+
+float intersectSphere(vec3 origin, vec3 dir, vec3 center, float radius) { 
+	vec3 oc = origin - center; 
+	float a = dir.dot(dir); 
+	float b = 2.0f * oc.dot(dir); 
+	float c = oc.dot(oc) - radius * radius; 
+	float discriminant = b * b - 4 * a * c; 
+	if (discriminant < 0.0f) { 
+		return -1.0f; 
+	} 
+	return (-b - sqrtf(discriminant)) / (2.0f * a); 
+} 
