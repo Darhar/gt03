@@ -197,99 +197,33 @@ void FrameBuffer::drawFillCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) 
 }
 
 void FrameBuffer::drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
-/*
-    int centerX = pos.x;  // x-coordinate of the center of the sphere
-    int centerY = pos.y;  // y-coordinate of the center of the sphere
 
-    for (int y = centerY - radius; y <= centerY + radius; y++) {
-        for (int x = centerX - radius; x <= centerX + radius; x++) {
-
-            if (distance(x, y, centerX, centerY) <= radius) {
-                int intensity = calculateIntensity(x, y, centerX, centerY, radius);
-				Color colPix=Color(intensity, intensity, intensity);
-				this->setPixel(Vec2(x, y), colPix, alpha);
-            }
-        }
-    }
-
-		/////////////////////////		
-    Vector3 light = {1, 1, 1}; // Light source vector
-    light = normalize(light);
-
-
-    float sphere_z = radius;
-    float pixel_width = 2.0 / radius;
-    float pixel_height = 2.0 / radius;
-
-    for (int y = -radius; y < radius; y++) {
-        for (int x = -radius; x < radius; x++) {
-			if (distance(x, y, 0, 0) <= radius) {
-				float sx = -1.0 + x * pixel_width;
-				float sy = 1.0 - y * pixel_height;
-
-				float sphere_x = sx * radius;
-				float sphere_y = sy * radius;
-
-				float distance = sqrt(sphere_x * sphere_x + sphere_y * sphere_y + (sphere_z * sphere_z));
-				float sphere_normal_x = sphere_x / distance;
-				float sphere_normal_y = sphere_y / distance;
-				float sphere_normal_z = sphere_z / distance;
-
-				Vector3 normal = {sphere_normal_x, sphere_normal_y, sphere_normal_z};
-				normal = normalize(normal);
-
-				float intensity = dot(normal, light);
-
-				if (intensity < 0) intensity = 0;
-
-				int shade = (int)(intensity * 255);
-				Color colPix=Color(shade, shade, shade);
-				this->setPixel(Vec2(x+pos.x, y+pos.y), colPix, alpha);
-				//fprintf(f, "%d %d %d ", shade, shade, shade);
-			}
-        }
-
-    }	*/
-	
-
-	// Sphere position and radius. 
-	const vec3 center{ 0.0f, 0.0f, 0.0f }; 
-	//const float radius = 22.0f; 
+	float lum;
+	int shade;	
  
 	// Light shines towards left and bottom, to inside screen. 
-	vec3 light{ -1.0f, 1.0f, 1.0f }; 
+	vec3 light{ 1.0f, 1.0f, 1.0f }; 
 	light.normalize(); 
-
-	// Ray direction - all parallel, down Z axis. 
-	const vec3 dir{ 0.0f, 0.0f, 1.0f }; 
-	 
-	// For each pixel... 
-	for (int y = -radius; y < radius; y++) { 
-		for (int x = -radius; x < radius; x++) { 
-
-			vec3 origin = vec3{ 0, 0, -30.0f }; 
  
-			float t = intersectSphere(origin, dir, center, radius); 
- 
-			if (t > 0.0f) { // Ray hit.
-			//if (distance(x, y, 0, 0) <= radius) {			
-				vec3 intersection = origin + (dir * t); 
-				vec3 normal = intersection - center; 
+	for (int y = 0; y < 2*radius; y++) { 
+		for (int x = 0; x < 2*radius; x++) { 
+			if (distance(x, y, radius, radius) <= radius){
+
+				vec3 normal = { x - radius, y - radius, -30.0f }; 
 				normal.normalize(); 
  
-				float lum = normal.dot(-light); 
- 
-				if (lum < 0) lum = 0;
+				lum = normal.dot(-light); 
 				
-				int shade = (int)(lum * 255);
+				if (lum >= 0) { 
+					shade = (int)(lum * 255);
+				}else{
+					shade = 0;
+				}					
 				Color colPix=Color(shade, shade, shade);
 				this->setPixel(Vec2(x+pos.x, y+pos.y), colPix, alpha);					
-
 			} 
-
 		} 
 	} 	
-	
 }
 
 void FrameBuffer::triangle(Vec2 p0, Vec2 p1, Vec2 p2, Color &c, uint8_t alpha) {
