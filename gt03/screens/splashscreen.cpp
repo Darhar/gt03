@@ -73,15 +73,16 @@ void SplashScreen::draw(Display *display) {
 	Color cRed = Color(rand() % 255, rand() % 255, rand() % 255);
 	//display->drawFillCircle(this->tileMoveX,  Vec2(160, 120), BLACKCOLOR,200);
 	//display->drawFillCircle(this->tileMoveX-4,  Vec2(160, 120), WHITECOLOR,200);
-	Vec2 p0=Vec2((rand() % 300)+20, (rand() % 220)+20);
+	Vec2 p0=Vec2((rand() % 320), (rand() % 240));
+
 	//display->drawFillCircle(this->tileMoveX,  p0, BLACKCOLOR,255);
 	//display->drawFillCircle(this->tileMoveX-4,  p0, cRed,255);
-	display->drawSphere(this->tileMoveX-4,  p0, cRed,255);
+	display->drawSphere(this->tileMoveX,  p0, cRed,255);
     //width = logoSprite.getSpriteWidth(tigerFrame);
     //logoSprite.drawSprite(display, tigerFrame, Vec2((DISPLAY_WIDTH - width)/2, 56), this->imageAlpha);
-    title = std::to_string(abs(this->tileMoveX));
-    width = alphanumfont.getTextWidth(title, 2);
-    alphanumfont.drawText(display, title, Vec2((DISPLAY_WIDTH - width)/2, 190), this->imageAlpha, 2);
+    //title = std::to_string(abs(this->tileMoveX));
+    //width = alphanumfont.getTextWidth(title, 2);
+    //alphanumfont.drawText(display, title, Vec2((DISPLAY_WIDTH - width)/2, 190), this->imageAlpha, 2);
 }
 
 void SplashScreen::keyPressed(uint8_t key) {

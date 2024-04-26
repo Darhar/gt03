@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
     Display *display = new Display();
     display->initDMAChannel();
     display->initSequence();
-    display->clear(Color(255, 255, 255));
+    display->clear(Color(0, 0, 0));
     display->update();
 
     KeyBoard *keyboard = new KeyBoard();
