@@ -5,13 +5,17 @@ Ive stripped down the code for GameTiger (https://github.com/codetiger/GameTiger
 
 ## LCD 
 Im using the Waveshare Pico-Res-Touch-LCD-2.8, a cheap, easy to get, touch screen module made for the Pi Pico. 
+<ul>
+<li>+320 × 240 Pixels</li>
+<li>+SPI</li>
+<li>+ST7789VW controller</li>
+<li>+262K RGB</li>
+<li>+MicoSD card slot</li>
+<li>+RGB565, and RGB666</li>
+</ul>
 
-+320 × 240 Pixels
-+SPI
-+ST7789VW controller
-+262K RGB
-+MicoSD card slot
-+RGB565, and RGB666
+
+
 
 ##Joystick
 I needed buttons to control the games/menus, initially I put together an interface board using a few tiny surface mounted buttons which turned out to be terrible.  Then I found the Funduino Joystick shield, it had Arduino header pins but also had a pinout for all the button, +5v, +3.3v and GND, so I removed all the arduino pins and made an interface board so I could connect it to the pico via the dev board.
