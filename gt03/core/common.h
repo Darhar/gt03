@@ -94,7 +94,7 @@ struct vec3 {
 float intersectSphere(vec3 origin, vec3 dir, vec3 center, float radius);
 timetype getTime();
 uint16_t getTimeDiffMS(timetype start);
-
+void drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha);
 // Function to calculate the dot product of two vectors
 float dot(Vector3 a, Vector3 b);
 

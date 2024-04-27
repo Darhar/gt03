@@ -23,6 +23,49 @@ Image logoSprite = Image(
 	(uint16_t*)logoSpriteSpriteData
 );
 
+void drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
+	float lum;
+	int rad2=2*radius;
+	
+	vec3 light{ 1.0f, 1.0f, 1.0f }; // Light shines towards right and bottom, to inside screen. 
+	light.normalize(); 
+ 
+	for (int y = 0; y < rad2; y++) { 
+		for (int x = 0; x < rad2; x++) { 
+			if (distance(x, y, radius, radius) <= radius){
+
+				vec3 normal = { (float)(x - radius), (float)(y - radius), (float)-radius }; 
+				normal.normalize(); 
+ 
+				lum = normal.dot(-light); 
+				if (lum < 0) { 
+					lum = 0;
+				}
+				printf("lum : %d\n",(int)(lum*10));
+
+				//apply the luminance to the colour components and conver from rgb565
+				Color colPix=Color(
+					std::min(255, ((int)(c.Colors.red *lum) << 3)+15), 
+					std::min(255, ((int)(c.Colors.green*lum) << 2)+7), 
+					std::min(255, ((int)(c.Colors.blue*lum) << 3)+15)
+				);
+				
+				/*
+				this->setPixel(
+					Vec2(x+pos.x-radius, y+pos.y-radius), 
+					colPix, 
+					alpha
+				);
+*/				
+			} 
+			else{
+				printf("--\n");
+				
+			}
+		} 
+	} 	
+}
+
 timetype getTime() {
     timetype now;
     now = to_ms_since_boot(get_absolute_time());
