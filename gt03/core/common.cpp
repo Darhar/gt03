@@ -63,7 +63,6 @@ int calculateIntensity(int x, int y, int centerX, int centerY, int radius) {
     return (int) intensity;
 }
 
-
 float intersectSphere(vec3 origin, vec3 dir, vec3 center, float radius) { 
 	vec3 oc = origin - center; 
 	float a = dir.dot(dir); 
@@ -75,3 +74,53 @@ float intersectSphere(vec3 origin, vec3 dir, vec3 center, float radius) {
 	} 
 	return (-b - sqrtf(discriminant)) / (2.0f * a); 
 } 
+
+// Function to convert RGB to HSL
+/*
+void rgbToHsl(float r, float g, float b, float* h, float* s, float* l) {
+    float maxColor = fmaxf(r, fmaxf(g, b));
+    float minColor = fminf(r, fminf(g, b));
+
+    float delta = maxColor - minColor;
+
+    *l = (maxColor + minColor) / 2;
+
+    if (delta == 0) {
+        *h = *s = 0; // achromatic
+    } else {
+        *s = delta / (1 - fabsf(2 * *l - 1));
+
+        if (r == maxColor)
+            *h = (g - b) / delta + (g < b ? 6 : 0);
+        else if (g == maxColor)
+            *h = (b - r) / delta + 2;
+        else
+            *h = (r - g) / delta + 4;
+
+        *h /= 6;
+    }
+}
+
+// Function to convert HSL to RGB
+void hslToRgb(float h, float s, float l, float* r, float* g, float* b) {
+    if (s == 0) {
+        *r = *g = *b = l; // achromatic
+    } else {
+        float q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        float p = 2 * l - q;
+        *r = hueToRgb(p, q, h + 1.0f/3.0f);
+        *g = hueToRgb(p, q, h);
+        *b = hueToRgb(p, q, h - 1.0f/3.0f);
+    }
+}
+
+float hueToRgb(float p, float q, float t) {
+    if (t < 0) t += 1;
+    if (t > 1) t -= 1;
+    if (t < 1.0f/6.0f) return p + (q - p) * 6 * t;
+    if (t < 1.0f/2.0f) return q;
+    if (t < 2.0f/3.0f) return p + (q - p) * (2.0f/3.0f - t) * 6;
+    return p;
+}
+
+*/

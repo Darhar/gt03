@@ -142,7 +142,6 @@ void FrameBuffer::drawCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
     while (y >= x)
     {
         x++;
-
         if (d > 0)
         {
             y--; 
@@ -158,7 +157,6 @@ void FrameBuffer::drawCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 		this->setPixel(Vec2(pos.x-y, pos.y+x), c, alpha);
 		this->setPixel(Vec2(pos.x+y, pos.y-x), c, alpha);
 		this->setPixel(Vec2(pos.x-y, pos.y-x), c, alpha);
-
     }
 }
 
@@ -201,7 +199,7 @@ void FrameBuffer::drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 	int shade;	
 	int rad2=2*radius;
 	
-	vec3 light{ 1.0f, 1.0f, 1.0f }; // Light shines towards left and bottom, to inside screen. 
+	vec3 light{ 1.0f, 1.0f, 1.0f }; // Light shines towards right and bottom, to inside screen. 
 	light.normalize(); 
  
 	for (int y = 0; y < rad2; y++) { 
@@ -213,13 +211,21 @@ void FrameBuffer::drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
  
 				lum = normal.dot(-light); 
 				
-				if (lum >= 0) { 
-					shade = (int)(lum * 255);
-				}else{
-					shade = 0;
-				}					
-				Color colPix=Color(shade, shade, shade);
-				this->setPixel(Vec2(x+pos.x, y+pos.y), colPix, alpha);					
+				if (lum < 0) { 
+					lum = 0;
+				}
+				//apply the luminance to the colour components and conver from rgb565
+
+				Color colPix=Color(
+					std::min(255, ((int)(c.Colors.red *lum) << 3)+15), 
+					std::min(255, ((int)(c.Colors.green*lum) << 2)+7), 
+					std::min(255, ((int)(c.Colors.blue*lum) << 3)+15)
+				);
+				this->setPixel(
+					Vec2(x+pos.x-radius, y+pos.y-radius), 
+					colPix, 
+					alpha
+				);					
 			} 
 		} 
 	} 	
