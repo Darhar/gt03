@@ -196,7 +196,6 @@ void FrameBuffer::drawFillCircle(int radius, Vec2 pos, Color &c, uint8_t alpha) 
 
 void FrameBuffer::drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 	float lum;
-	int shade;	
 	int rad2=2*radius;
 	
 	vec3 light{ 1.0f, 1.0f, 1.0f }; // Light shines towards right and bottom, to inside screen. 
@@ -215,7 +214,6 @@ void FrameBuffer::drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 					lum = 0;
 				}
 				//apply the luminance to the colour components and conver from rgb565
-
 				Color colPix=Color(
 					std::min(255, ((int)(c.Colors.red *lum) << 3)+15), 
 					std::min(255, ((int)(c.Colors.green*lum) << 2)+7), 
