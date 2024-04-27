@@ -23,6 +23,9 @@ Image logoSprite = Image(
 	(uint16_t*)logoSpriteSpriteData
 );
 
+
+//create sphere sprite
+//use lum values to index colors
 timetype getTime() {
     timetype now;
     now = to_ms_since_boot(get_absolute_time());
