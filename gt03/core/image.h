@@ -39,4 +39,19 @@ public:
     uint16_t getSpriteHeight(uint16_t index);
 }Image;
 
+class Sprite
+{
+private:
+    uint8_t xCount, yCount;
+    uint8_t tileWidth, tileHeight;
+    uint16_t *tiles;
+    std::map<uint16_t, uint8_t> animationFrame;
+public:
+    uint16_t width, height;
+    
+    Sprite(uint8_t xc, uint8_t yc, uint8_t tw, uint8_t th, uint16_t *ts);
+    ~Sprite();
+    void draw(Display *display, uint16_t screenx, uint16_t screeny);
+    void update(uint16_t deltaTimeMS);
+};
 #endif

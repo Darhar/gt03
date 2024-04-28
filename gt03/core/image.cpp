@@ -141,3 +141,24 @@ uint16_t Image::getTextWidth(std::string text, uint8_t scaleRatio) {
     }
     return width;
 }
+
+Sprite::Sprite(uint8_t xc, uint8_t yc, uint8_t tw, uint8_t th, uint16_t* ts) {
+    this->xCount = xc;
+    this->yCount = yc;
+    this->tileWidth = tw;
+    this->tileHeight = th;
+    this->tiles = ts;
+    this->width = xc * tw;
+    this->height = yc * th;
+}
+
+Sprite::~Sprite() {
+}
+
+
+void Sprite::update(uint16_t deltaTimeMS) {
+    for (auto const& x : animationFrame) {
+        uint16_t frameIndex = x.second;
+        animationFrame[x.first] = frameIndex+1;
+    }
+}
