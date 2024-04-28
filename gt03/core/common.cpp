@@ -23,6 +23,11 @@ Image logoSprite = Image(
 	(uint16_t*)logoSpriteSpriteData
 );
 
+<<<<<<< HEAD
+
+//create sphere sprite
+//use lum values to index colors
+=======
 void drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 	float lum;
 	int rad2=2*radius;
@@ -66,6 +71,7 @@ void drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 	} 	
 }
 
+>>>>>>> c5f9175b62ff95486025a02c31f40d952361cb73
 timetype getTime() {
     timetype now;
     now = to_ms_since_boot(get_absolute_time());
