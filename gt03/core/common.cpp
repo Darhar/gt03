@@ -23,11 +23,6 @@ Image logoSprite = Image(
 	(uint16_t*)logoSpriteSpriteData
 );
 
-<<<<<<< HEAD
-
-//create sphere sprite
-//use lum values to index colors
-=======
 void drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 	float lum;
 	int rad2=2*radius;
@@ -46,7 +41,7 @@ void drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 				if (lum < 0) { 
 					lum = 0;
 				}
-				printf("lum : %d\n",(int)(lum*10));
+				printf("%d\n",(int)((lum*10)+1));
 
 				//apply the luminance to the colour components and conver from rgb565
 				Color colPix=Color(
@@ -64,14 +59,13 @@ void drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 */				
 			} 
 			else{
-				printf("--\n");
+				printf("0\n");
 				
 			}
 		} 
 	} 	
 }
 
->>>>>>> c5f9175b62ff95486025a02c31f40d952361cb73
 timetype getTime() {
     timetype now;
     now = to_ms_since_boot(get_absolute_time());

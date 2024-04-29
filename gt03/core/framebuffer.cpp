@@ -205,7 +205,7 @@ void FrameBuffer::drawSphere(int radius, Vec2 pos, Color &c, uint8_t alpha) {
 		for (int x = 0; x < rad2; x++) { 
 			if (distance(x, y, radius, radius) <= radius){
 
-				vec3 normal = { x - radius, y - radius, -radius }; 
+				vec3 normal = { (float)(x - radius), (float)(y - radius), (float)-radius }; 
 				normal.normalize(); 
  
 				lum = normal.dot(-light); 

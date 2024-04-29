@@ -37,6 +37,10 @@ SplashScreen::SplashScreen(void (*rcb)(int8_t menu, uint8_t option), void (*hscb
      tinfo.color = Color(0,255,  255);
     this->bgLayer->addTileInfo(4, tinfo);
     printf("[SplashScreen] Done\n");
+	Vec2 p0=Vec2(160, 120);
+	Color cRed = Color(128,128, 255);
+			
+	drawSphere(10,  p0, cRed,255);
 }
 
 SplashScreen::~SplashScreen() {
@@ -50,14 +54,14 @@ void SplashScreen::update(uint16_t deltaTimeMS) {
     this->accDeltaTimeMS -= 16 * frameQuotient;
     
 	
-	if(this->tileMoveX >= 340){
+	if(this->tileMoveX >= 40){
 		this->tileMoveX = 5;
 	}else{
 		this->tileMoveX += frameQuotient;	
 	}
 
-    this->tileMoveY = (80 * sin(this->tileMoveX * 2 * M_PI / 80))+120;
-    if(this->imageAlpha < 50 - frameQuotient){
+    this->tileMoveY = (80 * sin(this->tileMoveX * 2 * M_PI / 80))+80;
+    if(this->imageAlpha < 255 - frameQuotient){
         this->imageAlpha += frameQuotient;
 	}
 	else{
@@ -69,15 +73,21 @@ void SplashScreen::draw(Display *display) {
 	std::string title;
 	uint16_t width;
 	
-	display->clear(Color(0, 0, 0));
+	//display->clear(Color(255, 255, 255));
     //this->bgLayer->draw(display, this->tileMoveX, this->tileMoveY);
 
 	//display->drawFillCircle(this->tileMoveX,  Vec2(160, 120), BLACKCOLOR,200);
 	//display->drawFillCircle(this->tileMoveX-4,  Vec2(160, 120), WHITECOLOR,200);
-	Vec2 p0=Vec2(this->tileMoveX, this->tileMoveY);
-	Color cRed = Color(127, 127,255);
-	display->drawSphere(20,  p0, cRed,255);		
+	Vec2 p0=Vec2((rand() % 320), (rand() % 240));
 
+
+
+		Color cRed = Color((rand() % 255),(rand() % 255), (rand() % 255));
+		
+		display->drawSphere((rand() % 30)+5,  p0, cRed,255);		
+
+
+	
     //width = logoSprite.getSpriteWidth(tigerFrame);
     //logoSprite.drawSprite(display, tigerFrame, Vec2((DISPLAY_WIDTH - width)/2, 56), this->imageAlpha);
     //title = std::to_string(abs(this->tileMoveX));
