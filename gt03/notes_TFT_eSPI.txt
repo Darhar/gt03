@@ -1,0 +1,65 @@
+C:\Users\dlind\Downloads\T-PicoC3-main\T-PicoC3-main\lib\TFT_eSPI\Extensions
+
+void TFT_eSprite::setBitmapColor(uint16_t c, uint16_t b)
+{
+_tft->bitmap_fg// Bitmap foreground (bit=1) and background (bit=0) colours
+_tft->bitmap_bg
+}
+
+bool TFT_eSprite::pushRotated(int16_t angle, uint32_t transp)
+{
+_tft->_vpOoB	// Out of Bounds flag (true is all of viewport is off screen)
+_tft->_xPivot	// TFT x pivot point coordinate for rotated Sprites
+_tft->_yPivot
+_tft->startWrite()// Begin SPI transaction
+_tft->endWrite()
+
+_tft->setWindow(x - pixel_count, y, x - 1, y)	//setWindow(int32_t xs, int32_t ys, int32_t xe, int32_t ye);   // Note: start + end coordinates
+_tft->pushPixels(sline_buffer, pixel_count) 	//define an area to receive a stream of pixels
+}
+
+bool TFT_eSprite::getRotatedBounds(int16_t angle, int16_t *min_x, int16_t *min_y,
+                                                  int16_t *max_x, int16_t *max_y)
+  
+_tft->_vpW	// Viewport variables   x start, y start, width, height
+_tft->_vpH
+_tft->_vpX
+_tft->_vpY
+}
+
+void TFT_eSprite::pushSprite(int32_t x, int32_t y)
+{
+_tft->getSwapBytes()		// Return the swap byte order for colours, Swap the byte order for pushImage() and pushPixels() - corrects endianness
+_tft->setSwapBytes(false)	//Used by 16 bit pushImage() to swap byte order in colours
+
+// These are used to render images or sprites stored in RAM arrays (used by Sprite class for 16bpp Sprites)
+_tft->pushImage(int32_t, int32_t, int32_t, int32_t, _img )
+_tft->pushImage(int32_t, int32_t, int32_t, int32_t, _img8, (bool))
+
+// These are used by Sprite class pushSprite() member function for 1, 4 and 8 bits per pixel (bpp) colours
+// They are not intended to be used with user sketches (but could be)
+// Set bpp8 true for 8bpp sprites, false otherwise. The cmap pointer must be specified for 4bpp
+_tft->pushImage(int32_t, int32_t, int32_t, int32_t, _img4, false, _colorMap)
+}
+
+void TFT_eSprite::pushSprite(int32_t x, int32_t y, uint16_t transp)
+{
+// These are used to render images stored in FLASH (PROGMEM)
+_tft->pushImage(int32_t, int32_t, int32_t, int32_t, _img, (uint16_t) )
+_tft->pushImage(int32_t, int32_t, int32_t, int32_t, _img8, (uint8_t), (bool))
+}
+
+bool TFT_eSprite::pushSprite(int32_t tx, int32_t ty, int32_t sx, int32_t sy, int32_t sw, int32_t sh)
+{
+  // This is virtual so the TFT_eSprite class can override it with sprite specific functions
+//push a single pixel at an arbitrary position
+_tft->drawPixel(int32_t, int32_t, readPixel(_xs, _ys) )
+}
+
+void TFT_eSprite::printToSprite(char *cbuffer, uint16_t len) //String string)
+{
+_tft->cursor_x
+_tft->cursor_y
+}
+
+The idea is to port over the _tft functions to work in gametiger then be able to use the sprite library and get one of the examples working, then add more _tft functions to get other examples working
